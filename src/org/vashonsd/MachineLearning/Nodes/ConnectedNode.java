@@ -30,6 +30,19 @@ public class ConnectedNode extends SimpleNode {
         value = 1 / (1 + Math.pow(Math.E, (-sumValues)));
     }
 
+    public void setWeight(SimpleNode connection, double weight) {
+        if (weights.containsKey(connection)) {
+            weights.put(connection, weight);
+
+        } else {
+            System.out.println("Not connected to that node");
+        }
+    }
+
+    public HashMap<SimpleNode, Double> getWeights() {
+        return weights;
+    }
+
     public String toString() {
         String result = "";
         int i = 1;

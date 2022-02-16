@@ -2,12 +2,12 @@ package org.vashonsd.FitnessTest;
 
 import java.util.List;
 
-public interface TwoPlayerFitnessTest extends BaseFitnessTest {
+public interface BaseFitnessTest {
 
+    void start();
     boolean isFinished();
-    String getWhoseTurn();
-    String getWinner();
 
     List<Double> getInputsForNetwork();
     void insertNetworkOutput(int networkOut);
+    boolean isLegalMove(int move);
 }

@@ -116,16 +116,32 @@ public class TicTacToe implements TwoPlayerFitnessTest {
         takeTurn(networkOut);
     }
 
+    @Override
+    public boolean isLegalMove(int move) {
+        if (squares.get(move).equals(" ")) {
+            return true;
+        }
+        return false;
+    }
+
     public List<Double> getInputsForNetwork() {
         List<Double> result = new ArrayList<>();
         for (String s: squares.values()) {
             if (s.equals(" ")) {
-                result.add(0.5);
+                result.add(0.0);
+                result.add(0.0);
             } else if (s.equals("X")) {
                 result.add(1.0);
+                result.add(0.0);
             } else {
                 result.add(0.0);
+                result.add(1.0);
             }
+        }
+        if (getWhoseTurn().equals("player1")) {
+            result.add(1.0);
+        } else {
+            result.add(0.0);
         }
         return result;
     }

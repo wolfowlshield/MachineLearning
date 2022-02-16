@@ -110,6 +110,9 @@ public class NeuralNetwork {
     public void setFitness(double fitness) {
         this.fitness = fitness;
     }
+    public void addFitness(double fitness) {
+        this.fitness += fitness;
+    }
 
     public String toString() {
 

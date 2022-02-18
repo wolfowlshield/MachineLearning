@@ -26,7 +26,7 @@ public class NeuralNetwork {
 
         layers.add(inputNodes);
         for (int i = 1; i <= numLayers - 2; i++) {
-            layers.add(new ArrayList<SimpleNode>()); // Replace with a for loop later for more hidden layers
+            layers.add(new ArrayList<SimpleNode>());
         }
         layers.add(outputNodes);
 
@@ -122,12 +122,12 @@ public class NeuralNetwork {
     public String toString() {
 
         String result = "The input layer has " + inputNodes.size() + " nodes\n" +
-                //"The hidden layer has " + hiddenNodes.size() + " nodes\n" +
+                //"The hidden layer has " + hiddenNodes.size() + " nodes\n" + // Make this print out all hidden layers
                 "The output layer has " + outputNodes.size() + " nodes\n";
 
         int currentNode = 1;
 
-        for (SimpleNode n: layers.get(1)) {
+        for (SimpleNode n: layers.get(1)) { // Should be another for loop for every hidden layer
             result = result.concat("Hidden Node #" + currentNode + "\n");
             result = result.concat(n.toString());
             currentNode++;

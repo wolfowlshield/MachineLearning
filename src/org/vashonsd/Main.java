@@ -9,10 +9,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Oh god...
-        // I guess I should get started...
-        // ...
-
         PlayTicTacToe ticTacToe = new PlayTicTacToe();
 
         ticTacToe.play();

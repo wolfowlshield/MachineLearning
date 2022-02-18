@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class PlayTicTacToe {
 
     public void play() {
-        // idk, this can't seem to work due to the fact that the results should change based on what player it is, but it dont.
         boolean running = true;
         String userIn;
         Scanner input = new Scanner(System.in);

@@ -22,7 +22,7 @@ public class WeightEvolvingAlgorithm {
     BaseFitnessTest fitnessTest;
     double mutationChance;
 
-    // For a fixed topology network with one hidden layer
+    // For a fixed topology network
     public WeightEvolvingAlgorithm(int batchSize, int numInputs, int numOutputs, BaseFitnessTest fitnessTest) {
         this.batchSize = batchSize;
         for (int i = batchSize; i > 0; i--) {

@@ -12,7 +12,7 @@ import java.util.List;
 public class NeuralNetwork {
 
     List<SimpleNode> inputNodes = new ArrayList<>();
-    List<SimpleNode> hiddenNodes = new ArrayList<>();
+    // List<SimpleNode> hiddenNodes = new ArrayList<>();
     List<SimpleNode> outputNodes = new ArrayList<>();
 
     List<List<SimpleNode>> layers = new ArrayList<>();
@@ -25,7 +25,9 @@ public class NeuralNetwork {
         this.numLayers = numLayers;
 
         layers.add(inputNodes);
-        layers.add(hiddenNodes); // Replace with a for loop later for more hidden layers
+        for (int i = 1; i <= numLayers - 2; i++) {
+            layers.add(new ArrayList<SimpleNode>()); // Replace with a for loop later for more hidden layers
+        }
         layers.add(outputNodes);
 
         for (int i = numInputs; i > 0; i--) {
@@ -33,7 +35,9 @@ public class NeuralNetwork {
         }
         inputNodes.add(new BiasNode());
 
-        buildHiddenLayer(1);
+        for (int i = 1; i <= numLayers - 2; i++) {
+            buildHiddenLayer(i);
+        }
 
         for (int i = numOutputs; i > 0; i--) {
             outputNodes.add(new ConnectedNode(numLayers - 1, this));
@@ -44,9 +48,9 @@ public class NeuralNetwork {
 
     public void buildHiddenLayer(int layer) {
         for (int i = 15; i > 0; i--) {
-            hiddenNodes.add(new ConnectedNode(layer, this));
+            layers.get(layer).add(new ConnectedNode(layer, this));
         }
-        hiddenNodes.add(new BiasNode());
+        layers.get(layer).add(new BiasNode());
     }
 
     public void calculateOutput() {
@@ -88,6 +92,7 @@ public class NeuralNetwork {
         }
         sortedKeys = new ArrayList<>(unsorted.keySet());
         Collections.sort(sortedKeys);
+        Collections.reverse(sortedKeys);
         for (Double key: sortedKeys) {
             sortedValues.add(unsorted.get(key));
         }
@@ -117,12 +122,12 @@ public class NeuralNetwork {
     public String toString() {
 
         String result = "The input layer has " + inputNodes.size() + " nodes\n" +
-                "The hidden layer has " + hiddenNodes.size() + " nodes\n" +
+                //"The hidden layer has " + hiddenNodes.size() + " nodes\n" +
                 "The output layer has " + outputNodes.size() + " nodes\n";
 
         int currentNode = 1;
 
-        for (SimpleNode n: hiddenNodes) {
+        for (SimpleNode n: layers.get(1)) {
             result = result.concat("Hidden Node #" + currentNode + "\n");
             result = result.concat(n.toString());
             currentNode++;

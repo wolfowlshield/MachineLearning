@@ -15,6 +15,7 @@ public class WeightEvolvingAlgorithm {
     // Using a standard Genetic Algorithm with Uniform Crossover
 
     List<NeuralNetwork> neuralNetworks = new ArrayList<>();
+    int numLayers;
     int numInputs;
     int numOutputs;
     int batchSize;
@@ -27,6 +28,19 @@ public class WeightEvolvingAlgorithm {
         for (int i = batchSize; i > 0; i--) {
             neuralNetworks.add(new NeuralNetwork(3, numInputs, numOutputs));
         }
+        this.numLayers = 3;
+        this.numInputs = numInputs;
+        this.numOutputs = numOutputs;
+        this.fitnessTest = fitnessTest;
+        mutationChance = 0.05;
+    }
+
+    public WeightEvolvingAlgorithm(int batchSize, int numLayers, int numInputs, int numOutputs, BaseFitnessTest fitnessTest) {
+        this.batchSize = batchSize;
+        for (int i = batchSize; i > 0; i--) {
+            neuralNetworks.add(new NeuralNetwork(numLayers, numInputs, numOutputs));
+        }
+        this.numLayers = numLayers;
         this.numInputs = numInputs;
         this.numOutputs = numOutputs;
         this.fitnessTest = fitnessTest;
@@ -38,6 +52,7 @@ public class WeightEvolvingAlgorithm {
         for (int i = batchSize; i > 0; i--) {
             neuralNetworks.add(new NeuralNetwork(3, numInputs, numOutputs));
         }
+        this.numLayers = 3;
         this.numInputs = numInputs;
         this.numOutputs = numOutputs;
         this.fitnessTest = fitnessTest;
@@ -94,7 +109,7 @@ public class WeightEvolvingAlgorithm {
             }
 
             // Create new Neural Network using the parents as a base
-            NeuralNetwork daBaby = new NeuralNetwork(3, numInputs, numOutputs);
+            NeuralNetwork daBaby = new NeuralNetwork(numLayers, numInputs, numOutputs);
 
             for (int layer = 1; layer < daBaby.getLayers().size(); layer++) {
                 List<SimpleNode> currentLayer = daBaby.getLayers().get(layer);
@@ -159,7 +174,8 @@ public class WeightEvolvingAlgorithm {
                             System.out.println(player1.getSortedOutputs());
                             inputTwoPlayerBestValue(player1);
                         } else {
-                            player2.update(fitnessTest.getInputsForNetwork());
+                            // get inverted inputs...
+                            player2.update(invertInputs(fitnessTest.getInputsForNetwork()));
                             System.out.println(player1.getSortedOutputs());
                             inputTwoPlayerBestValue(player2);
                         }
@@ -187,6 +203,18 @@ public class WeightEvolvingAlgorithm {
         }
 
         sortNeuralNetworks();
+    }
+
+    public List<Double> invertInputs(List<Double> inputs) {
+        List<Double> invertedList = new ArrayList<>();
+        for (Double input: inputs) {
+            if (input == 1.0) {
+                invertedList.add(0.0);
+            } else {
+                invertedList.add(1.0);
+            }
+        }
+        return invertedList;
     }
 
     public void inputTwoPlayerBestValue(NeuralNetwork network) {

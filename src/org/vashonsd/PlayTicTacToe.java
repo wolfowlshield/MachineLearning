@@ -15,7 +15,7 @@ public class PlayTicTacToe {
 
         TicTacToe game = new TicTacToe();
 
-        WeightEvolvingAlgorithm algorithm = new WeightEvolvingAlgorithm(20, 19, 9, game);
+        WeightEvolvingAlgorithm algorithm = new WeightEvolvingAlgorithm(20, 4,18, 9, game);
 
         // System.out.println(algorithm.getNeuralNetworks().get(0).toString());
 
@@ -30,7 +30,7 @@ public class PlayTicTacToe {
 
                         algorithm.getNeuralNetworks().get(0).update(game.getInputsForNetwork());
 
-                        System.out.println("\nLowest  <- - - - -> Highest");
+                        System.out.println("\nHighest  <- - - - -> Lowest");
                         System.out.println(algorithm.getNeuralNetworks().get(0).getSortedOutputs());
 
                         System.out.println("Where do you want to play");

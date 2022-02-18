@@ -138,11 +138,6 @@ public class TicTacToe implements TwoPlayerFitnessTest {
                 result.add(1.0);
             }
         }
-        if (getWhoseTurn().equals("player1")) {
-            result.add(1.0);
-        } else {
-            result.add(0.0);
-        }
         return result;
     }
 }
